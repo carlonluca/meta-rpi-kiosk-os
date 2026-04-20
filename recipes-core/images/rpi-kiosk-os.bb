@@ -14,3 +14,6 @@ include recipes-core/images/core-image-base.bb
 
 SYSTEMD_DEFAULT_TARGET = "graphical.target"
 DISTRO_FEATURES:append = " systemd"
+IMAGE_INSTALL:append = " \
+   rpi-kiosk-os-mainapp \
+"
