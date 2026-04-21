@@ -26,8 +26,8 @@ RDEPENDS:${PN} = " \
 LICENSE = "MPL-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=f75d2927d3c1ed2414ef72048f5ad640"
 SRCREV = "2d2c07b192340d1d4c61d1d2a3727457c2f2a3e2"
-SRC_URI = "https://github.com/carlonluca/rpi-kiosk-os-mainapp.git;branch=master"
-S = "${WORKDIR}"
+SRC_URI = "git://github.com/carlonluca/rpi-kiosk-os-mainapp.git;branch=master;protocol=https"
+S = "${WORKDIR}/git"
 BIN_DIR = "${D}${bindir}"
 
 inherit qt6-cmake
