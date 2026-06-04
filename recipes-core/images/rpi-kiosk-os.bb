@@ -11,9 +11,30 @@
 SUMMARY = "rpi-kiosk-os"
 
 include recipes-core/images/core-image-base.bb
+inherit populate_sdk populate_sdk_qt6
 
 SYSTEMD_DEFAULT_TARGET = "graphical.target"
-DISTRO_FEATURES:append = " systemd"
+
+EXTRA_IMAGE_FEATURES += "debug-tweaks"
+#DEV_TOOLS = "${@bb.utils.contains('EXTRA_IMAGE_FEATURES', 'debug-tweaks', " \
+#   qtdeclarative-tools \
+#   packagegroup-qt6-essentials \
+#   packagegroup-qt6-addons \
+#   packagegroup-core-full-cmdline \
+#", '', d)}"
+FULL_QT += "qtdeclarative-tools packagegroup-qt6-essentials packagegroup-qt6-addons packagegroup-core-full-cmdline"
 IMAGE_INSTALL:append = " \
    rpi-kiosk-os-mainapp \
+   mesa mesa libgl-mesa-dev libgles3-mesa-dev \
+   ${FULL_QT} \
+"
+IMAGE_INSTALL:remove = "busybox"
+
+IMAGE_FEATURES += "ssh-server-openssh"
+
+RPI_EXTRA_CONFIG = " \n \
+   gpu_mem=256 \n \
+   disable_overscan=1 \n \
+   dtoverlay=vc4-kms-v3d \n \
+   max_framebuffers=2 \n \
 "
