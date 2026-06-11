@@ -11,30 +11,33 @@
 SUMMARY = "rpi-kiosk-os"
 
 include recipes-core/images/core-image-base.bb
-inherit populate_sdk populate_sdk_qt6
+#inherit populate_sdk populate_sdk_qt6
 
-SYSTEMD_DEFAULT_TARGET = "graphical.target"
+IMAGE_FEATURES:append = " read-only-rootfs allow-root-login ssh-server-openssh"
+IMAGE_FEATURES:remove = "3g bluetooth irda nfc zeroconf x11 wayland bluez5"
 
-EXTRA_IMAGE_FEATURES += "debug-tweaks"
-#DEV_TOOLS = "${@bb.utils.contains('EXTRA_IMAGE_FEATURES', 'debug-tweaks', " \
-#   qtdeclarative-tools \
-#   packagegroup-qt6-essentials \
-#   packagegroup-qt6-addons \
-#   packagegroup-core-full-cmdline \
-#", '', d)}"
-FULL_QT += "qtdeclarative-tools packagegroup-qt6-essentials packagegroup-qt6-addons packagegroup-core-full-cmdline"
+IMAGE_INSTALL:remove = "ofono"
+
 IMAGE_INSTALL:append = " \
    rpi-kiosk-os-mainapp \
-   mesa mesa libgl-mesa-dev libgles3-mesa-dev \
-   ${FULL_QT} \
+   mesa libgl-mesa-dev libgles3-mesa-dev \
+   packagegroup-qt6-essentials \
+   packagegroup-qt6-addons \
+   packagegroup-core-full-cmdline \
+   packagegroup-tmbase \
+   packagegroup-debug \
+   dbus alsa-lib alsa-utils alsa-tools \
 "
-IMAGE_INSTALL:remove = "busybox"
 
-IMAGE_FEATURES += "ssh-server-openssh"
+IMAGE_INSTALL:append = " gstreamer1.0  gstreamer1.0-meta-base gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly"
+IMAGE_INSTALL:remove = "agetty systemd-serialgetty"
 
-RPI_EXTRA_CONFIG = " \n \
-   gpu_mem=256 \n \
-   disable_overscan=1 \n \
-   dtoverlay=vc4-kms-v3d \n \
-   max_framebuffers=2 \n \
+TOOLCHAIN_TARGET_TASK += " mesa libgl-mesa-dev libgles3-mesa-dev"
+
+inherit extrausers
+PASSWD = "\$5\$CsQzOJIZygjZNYeX\$Z2/t8JNYwvEwymz3fZ2qZ6G8OKC8//NdrO3kniTT6G8"
+EXTRA_USERS_PARAMS = " \
+    usermod -p '${PASSWD}' root; \
+    usermod -s /bin/bash root; \
+    usermod -d /root -m root; \
 "
