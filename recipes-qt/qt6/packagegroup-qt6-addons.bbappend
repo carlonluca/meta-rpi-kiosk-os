@@ -8,4 +8,4 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 
-DEPENDS += " cups"
+RDEPENDS:${PN}:remove = "qtgrpc qtdeviceutilities"

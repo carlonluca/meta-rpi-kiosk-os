@@ -1,0 +1,22 @@
+#
+# SPDX-License-Identifier: MPL-2.0
+#
+# Copyright (C) 2026 Luca Carlon
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+#
+
+[cm4]
+dtoverlay=dwc2,dr_mode=host
+
+[all]
+hdmi_force_hotplug=1
+dtparam=spi=on
+enable_uart=1
+dtparam=audio=on
+gpu_mem=256
+disable_overscan=1
+dtoverlay=vc4-kms-v3d
+max_framebuffers=2

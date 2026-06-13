@@ -1,0 +1,4 @@
+KERNEL=="vchiq",GROUP="video",MODE="0660"
+KERNEL=="watchdog",MODE="0660",GROUP="users"
+KERNEL=="uinput",MODE="0660",GROUP="input"
+KERNEL=="vcio",MODE="0660",GROUP="video"

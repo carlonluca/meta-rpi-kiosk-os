@@ -1,0 +1,1 @@
+dwc_otg.lpm_enable=0 vt.global_cursor_default=0 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait net.ifnames=0 biosdevname=0 noswap ro plymouth.ignore-serial-consoles usbhid.mousepoll=0 ipv6.disable=1
