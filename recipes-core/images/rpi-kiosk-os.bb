@@ -32,6 +32,8 @@ IMAGE_INSTALL:remove = "agetty systemd-serialgetty"
 
 TOOLCHAIN_TARGET_TASK += " mesa libgl-mesa-dev libgles3-mesa-dev"
 
+SYSTEMD_DEFAULT_TARGET = "graphical.target"
+
 inherit extrausers
 PASSWD = "\$5\$kBUWFioTofF6UcbO\$mt8/e5p5cx1z88e61gsSYu1DhFac7lglhUm6.CfIRA5"
 EXTRA_USERS_PARAMS = " \

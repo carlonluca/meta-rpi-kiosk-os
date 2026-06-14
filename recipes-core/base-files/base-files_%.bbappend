@@ -10,7 +10,7 @@
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
-RDEPENDS:${PN} += " bash"
+RDEPENDS:${PN} += " bash bash-completion"
 
 SRC_URI += " \
     file://fstab \
@@ -21,6 +21,8 @@ SRC_URI += " \
     file://remount_rw \
     file://reboot \
     file://99-kioskui.rules \
+    file://.bashrc \
+    file://.nanorc \
 "
 
 do_install:append() {
@@ -39,6 +41,10 @@ do_install:append() {
     install -m 0755 ${WORKDIR}/remount_ro ${D}${bindir}
     install -m 0755 ${WORKDIR}/remount_rw ${D}${bindir}
     install -m 0755 ${WORKDIR}/reboot ${D}${bindir}
+    install -m 0755 ${WORKDIR}/.bashrc ${D}/root/
+    install -m 0644 ${WORKDIR}/.nanorc ${D}/root/
+    chown root:root ${D}/root/.bashrc
+    chown root:root ${D}/root/.nanorc
 
     install -d ${D}/${sysconfdir}/udev/rules.d
     install -m 0644 ${WORKDIR}/99-kioskui.rules ${D}${sysconfdir}/udev/rules.d/
@@ -55,3 +61,5 @@ FILES:${PN} += "${bindir}/kioskui_restart"
 FILES:${PN} += "${bindir}/remount_ro"
 FILES:${PN} += "${bindir}/remount_rw"
 FILES:${PN} += "${bindir}/reboot"
+FILES:${PN} += "/root/.bashrc"
+FILES:${PN} += "/root/.nanorc"
