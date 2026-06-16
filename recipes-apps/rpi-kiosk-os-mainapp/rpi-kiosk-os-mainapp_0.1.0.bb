@@ -26,7 +26,7 @@ RDEPENDS:${PN} = " \
 "
 LICENSE = "MPL-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=f75d2927d3c1ed2414ef72048f5ad640"
-SRCREV = "74b3deebc5b78a5c0cf23313e44a181c1ed46e35"
+SRCREV = "00a6c5dd7648e1c3272610c2cd2068b24f43311c"
 SRC_URI = " \
    git://github.com/carlonluca/rpi-kiosk-os-mainapp.git;branch=master;protocol=https \
    file://rpi-kiosk-os-mainapp.service \
