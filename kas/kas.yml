@@ -1,0 +1,71 @@
+header:
+  version: 1
+machine: raspberrypi-armv7
+distro: rpi-kiosk-os
+target: rpi-kiosk-os
+repos:
+  poky:
+    url: "https://github.com/yoctoproject/poky.git"
+    commit: d4576e3c081a7ee7b57d48421c4c4f491cb4defe
+    layers:
+      meta:
+      meta-poky:
+      meta-yocto-bsp:
+  meta-openembedded:
+    url: "https://github.com/openembedded/meta-openembedded.git"
+    commit: 72018ca1b1a471226917e8246e8bbf9a374ccf97
+    layers:
+      meta-oe:
+      meta-python:
+      meta-networking:
+      meta-multimedia:
+  meta-qt6:
+    url: "git://code.qt.io/yocto/meta-qt6.git"
+    commit: 9e6928ef66bced84ec3eecfdac00a3540b0a6479
+    layers:
+      .:
+  meta-raspberrypi:
+    url: "https://github.com/carlonluca/meta-raspberrypi.git"
+    commit: dba8fd85a22d4e470d4b023f27276e5714a489c9
+    layers:
+      .:
+  meta-lutils:
+    url: "https://github.com/carlonluca/meta-lutils.git"
+    commit: 71eaf956a1f97fccb9e0c7ead98837173c6ef157
+    layers:
+      .:
+  meta-rpi-kiosk-os:
+    url: "ssh://git@luc4.duckdns.org:2223/pi/meta-rpi-kiosk-os.git"
+    commit: e1eac59c5813f6ce69a2a4f74b9a817bb53c8ec1
+    layers:
+      .:
+local_conf_header:
+  main: |
+    INHERIT += "image-buildinfo"
+    IMAGE_BUILDINFO_VARS:append = " DATETIME DISTRO_NAME IMAGE_BASENAME MACHINE TUNE_PKGARCH"
+    IMAGE_BUILDINFO_VARS:append = " MACHINE_FEATURES DISTRO_FEATURES COMMON_FEATURES IMAGE_FEATURES"
+    IMAGE_BUILDINFO_VARS:append = " TUNE_FEATURES TARGET_FPU"
+  license: |
+    LICENSE_FLAGS_ACCEPTED:append = "commercial synaptics-killswitch"
+  image: |
+    IMAGE_FSTYPES = "wic"
+    SDIMG_ROOTFS_TYPE = "ext3"
+    WIC_CREATE_EXTRA_ARGS = "--no-fstab-update"
+    SERIAL_CONSOLES = ""
+  rpi-specific: |
+    ENABLE_UART = "1"
+    RASPBERRYPI_CAMERA_V2 = "1"
+    RASPBERRYPI_CAMERA_V3 = "1"
+    RPI_KERNEL_DEVICETREE_OVERLAYS:append = " \
+        overlays/uart1.dtbo \
+        overlays/uart2.dtbo \
+        overlays/uart3.dtbo \
+        overlays/uart4.dtbo \
+        overlays/uart5.dtbo \
+    "
+  debug: |
+    EXTRA_IMAGE_FEATURES:append = " tools-debug tools-sdk"
+    PACKAGECONFIG:append:pn-systemd = " coredump"
+  locale: |
+    GLIBC_GENERATE_LOCALES ?= "en_US.UTF-8"
+    IMAGE_LINGUAS="en-us"
