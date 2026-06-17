@@ -31,7 +31,6 @@ SRC_URI = " \
    git://github.com/carlonluca/rpi-kiosk-os-mainapp.git;branch=master;protocol=https \
    file://rpi-kiosk-os-mainapp.service \
 "
-S = "${WORKDIR}/git"
 SBIN_DIR = "${D}${sbindir}"
 
 inherit qt6-cmake
