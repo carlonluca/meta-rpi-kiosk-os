@@ -35,19 +35,19 @@ do_install:append() {
     mkdir -p ${D}/var/run
     mkdir -p ${D}/var/spool
 
-    install -m 0644 ${WORKDIR}/fstab ${D}${sysconfdir}/
-    install -m 0755 ${WORKDIR}/kioskui_start ${D}${bindir}
-    install -m 0755 ${WORKDIR}/kioskui_stop ${D}${bindir}
-    install -m 0755 ${WORKDIR}/kioskui_restart ${D}${bindir}
-    install -m 0755 ${WORKDIR}/remount_ro ${D}${bindir}
-    install -m 0755 ${WORKDIR}/remount_rw ${D}${bindir}
-    install -m 0755 ${WORKDIR}/reboot ${D}${bindir}
-    install -m 0755 ${WORKDIR}/.bashrc ${D}/root/
-    install -m 0755 ${WORKDIR}/.bash_profile ${D}/root/
-    install -m 0644 ${WORKDIR}/.nanorc ${D}/root/
+    install -m 0644 ${WORKDIR}/sources/fstab ${D}${sysconfdir}/
+    install -m 0755 ${WORKDIR}/sources/kioskui_start ${D}${bindir}
+    install -m 0755 ${WORKDIR}/sources/kioskui_stop ${D}${bindir}
+    install -m 0755 ${WORKDIR}/sources/kioskui_restart ${D}${bindir}
+    install -m 0755 ${WORKDIR}/sources/remount_ro ${D}${bindir}
+    install -m 0755 ${WORKDIR}/sources/remount_rw ${D}${bindir}
+    install -m 0755 ${WORKDIR}/sources/reboot ${D}${bindir}
+    install -m 0755 ${WORKDIR}/sources/.bashrc ${D}/root/
+    install -m 0755 ${WORKDIR}/sources/.bash_profile ${D}/root/
+    install -m 0644 ${WORKDIR}/sources/.nanorc ${D}/root/
 
     install -d ${D}/${sysconfdir}/udev/rules.d
-    install -m 0644 ${WORKDIR}/99-kioskui.rules ${D}${sysconfdir}/udev/rules.d/
+    install -m 0644 ${WORKDIR}/sources/99-kioskui.rules ${D}${sysconfdir}/udev/rules.d/
 
     # lcarlon: for the at service
     mkdir -p ${D}/var/spool/at/jobs
