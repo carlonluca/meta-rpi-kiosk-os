@@ -22,7 +22,6 @@ RDEPENDS:${PN} += " \
     file \
     ttf-roboto \
     ffmpeg \
-    omxplayer \
     net-tools \
     gptfdisk \
     e2fsprogs \
