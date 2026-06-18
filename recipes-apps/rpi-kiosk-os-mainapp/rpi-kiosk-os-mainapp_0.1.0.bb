@@ -37,7 +37,7 @@ inherit qt6-cmake
 
 do_install:append () {
     install -d ${D}/${systemd_unitdir}/system
-    install -m 0644 ${WORKDIR}/rpi-kiosk-os-mainapp.service ${D}/${systemd_unitdir}/system
+    install -m 0644 ${WORKDIR}/sources/rpi-kiosk-os-mainapp.service ${D}/${systemd_unitdir}/system
 }
 
 FILES:${PN} += "${systemd_unitdir}/system/rpi-kiosk-os-mainapp.service"
